@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<PackageOutputPath>./nupkg</PackageOutputPath>
+
+		<PackageVersion>1.0.0</PackageVersion>
+		<Authors>Arfware</Authors>
+		<Company>Arfware</Company>
+		<Product>Arfware ArfBlocks Test</Product>
+		<Description>ArfBlocks Test is an test suite for ArfBlocks based Command and Queries.</Description>
+		<Copyright>Copyright © Arfware</Copyright>
+		<Summary>ArfBlocks Test is an test suite for ArfBlocks based Command and Queries.</Summary>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<Title>Arfware.ArfBlocks.Test</Title>
+		<PackageId>Arfware.ArfBlocks.Test</PackageId>
+		<PackageTags>Arfware,ArfBlocks,Mediator</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/Arfware/arfblocks-dotnet</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Arfware/arfblocks-dotnet</RepositoryUrl>
+		<RootNamespace>Arfware.ArfBlocks.Test</RootNamespace>
+		<AssemblyName>Arfware.ArfBlocks.Test</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../LICENSE.txt" Pack="true" PackagePath="" />
+		<None Include="../icon.png" Pack="true" PackagePath="" />
+		<None Include="./README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Arfware.ArfBlocks.Core\Arfware.ArfBlocks.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- <PackageReference Include="Arfware.ArfBlocks.Core" Version="1.2.0" /> -->
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+	</ItemGroup>
+
+</Project>

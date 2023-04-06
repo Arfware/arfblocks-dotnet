@@ -1,0 +1,9 @@
+global using System;
+global using System.Collections.Generic;
+global using Arfware.ArfBlocks.Core;
+global using TodoApp.Application.Configuration;
+global using TodoApp.Infrastructure.RelationalDB;
+global using TodoApp.Infrastructure.Services;
+global using Arfware.ArfBlocks.Core.Extentions;
+global using Microsoft.EntityFrameworkCore.Design;
+global using Microsoft.EntityFrameworkCore;

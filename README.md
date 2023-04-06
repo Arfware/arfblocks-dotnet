@@ -1,2 +1,8 @@
-# arfblocks-dotnet
-ArfBlocks in Dotnet
+# ArfBlocks
+
+ArfBlocks is an advanced Mediator-Pattern library for Dotnet.
+
+## Packages
+
+- Arfware.ArfBlocks.Core
+- Arfware.ArfBlocks.Test

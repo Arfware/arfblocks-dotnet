@@ -1,0 +1,82 @@
+<mxfile host="65bd71144e">
+    <diagram id="FkSFAC3vOsAAzgEfnUQO" name="Page-1">
+        <mxGraphModel dx="737" dy="521" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="330" height="660" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
+                    <mxGeometry x="75" y="110" width="260" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Create" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="170" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Update" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="230" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Delete" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="290" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
+                    <mxGeometry x="75" y="400" width="260" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Get" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="460" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="All" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="520" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Pick" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="580" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Commands" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5" parent="1" vertex="1">
+                    <mxGeometry x="165" y="120" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Queries" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5" parent="1" vertex="1">
+                    <mxGeometry x="175" y="400" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="User" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="165" y="50" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="40" width="330" height="660" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
+                    <mxGeometry x="475" y="110" width="260" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Create" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="170" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Update" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="230" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Delete" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="290" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B3B3B3;" parent="1" vertex="1">
+                    <mxGeometry x="475" y="400" width="260" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Get" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="460" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Pendings" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="520" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="MyTasks" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="580" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="Commands" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5" parent="1" vertex="1">
+                    <mxGeometry x="565" y="120" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Queries" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5" parent="1" vertex="1">
+                    <mxGeometry x="575" y="400" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Task" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=5;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="565" y="50" width="60" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

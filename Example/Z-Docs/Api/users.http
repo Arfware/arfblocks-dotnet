@@ -1,0 +1,26 @@
+
+#  @ApiUrl = http://localhost:5000
+ @ApiUrl = http://localhost:5001
+#  @JwtToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzZjA1MjE1Yy1iNDhlLTQ3OWYtOTg1ZC0wMDFmMmJkZjJiN2IiLCJnaXZlbl9uYW1lIjoiam9obkBjb21wYW55LmNvbSIsInVuaXF1ZV9uYW1lIjoiSm9obiBEb2UiLCJuYmYiOjE2NjQ4MDQwNjIsImV4cCI6MTY2NTA2MzI2MiwiaWF0IjoxNjY0ODA0MDYyLCJhdWQiOiJUb2RvQXBwLmNvbS50ciJ9.qx_3r2xM8uUGHysvywyXOCILq98QFxcZl2z_OQh8aNk
+
+### All Users
+GET {{ApiUrl}}/Users/All
+Accept: application/json
+Content-Type: application/json
+# Authorization: Bearer {{JwtToken}}
+
+### Get Current User
+GET {{ApiUrl}}/Users/Me
+Accept: application/json
+Content-Type: application/json
+# Authorization: Bearer {{JwtToken}}
+
+
+### Login Phase One
+POST {{ApiUrl}}/Users/Login
+Accept: application/json
+Content-Type: application/json
+
+{
+	"email": "john@company.com"
+}
