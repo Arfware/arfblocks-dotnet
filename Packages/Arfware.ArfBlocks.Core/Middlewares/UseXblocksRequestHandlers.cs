@@ -22,6 +22,7 @@ namespace Arfware.ArfBlocks.Core
 
 	public class UseRequestHandlersOptions
 	{
+		public List<string> SkipUrls { get; set; }
 		public AuthorizationPolicies AuthorizationPolicy { get; set; }
 		public AuthorizationTypes AuthorizationType { get; set; }
 
@@ -71,7 +72,9 @@ namespace Arfware.ArfBlocks.Core
 			{
 				AuthorizationPolicy = UseRequestHandlersOptions.AuthorizationPolicies.AssumeAllAllowAnonymous,
 				AuthorizationType = UseRequestHandlersOptions.AuthorizationTypes.None,
+				SkipUrls = new List<string>(),
 			};
+
 			options(opt);
 
 			ValidateOptions(opt);
@@ -79,10 +82,18 @@ namespace Arfware.ArfBlocks.Core
 			var dependencyProvider = (ArfBlocksDependencyProvider)app.ApplicationServices.GetService(typeof(ArfBlocksDependencyProvider));
 			var _requestOperator = new ArfBlocksRequestOperator(dependencyProvider);
 
+
 			app.Use(async (context, next) =>
 				{
-					var middleware = new HandlerMiddleware();
-					await middleware.InvokeMiddleware(context, _requestOperator, opt);
+					if (context.Request.Path.HasValue && opt.SkipUrls.Any(s => context.Request.Path.Value.StartsWith(s)))
+					{
+						await next();
+					}
+					else
+					{
+						var middleware = new HandlerMiddleware();
+						await middleware.InvokeMiddleware(context, _requestOperator, opt);
+					}
 				});
 
 			return app;
@@ -90,11 +101,13 @@ namespace Arfware.ArfBlocks.Core
 
 		private static void ValidateOptions(UseRequestHandlersOptions options)
 		{
+			if (options.SkipUrls == null)
+				throw new Exception("SkipUrls must contains string list or must be empty list");
+
 			if (options.AuthorizationType == UseRequestHandlersOptions.AuthorizationTypes.Jwt && options.JwtAuthorizationOptions == null)
 				throw new Exception("Authorization Type Selected as Jwt but Jwt Authorization Options Not Specified. Use 'options.JwtAuthorizationOptions = new UseRequestHandlersOptions.JwtAuthorizationOptionsModel(){...'");
 		}
 	}
-
 
 	public class HandlerMiddleware
 	{

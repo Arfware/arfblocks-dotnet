@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Http;
 using BusinessModules.Management.Infrastructure.Services;
 using TodoApp.Infrastructure.Services;
 using System.Threading;
+using Microsoft.AspNetCore.Authorization;
+using Arfware.ArfBlocks.Core.Attributes;
 
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
+	[AllowAnonymousHandler]
 	public class Handler : IRequestHandler
 	{
 		private readonly DataAccess dataAccessLayer;
