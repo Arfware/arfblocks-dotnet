@@ -11,15 +11,15 @@ public class ChatHub : Hub
 
 	public override async Task OnConnectedAsync()
 	{
-		System.Console.WriteLine("User Connected via WebSocket");
-		await Clients.All.SendAsync("UserConncted", "newUser");
+		// System.Console.WriteLine("User Connected via WebSocket");
+		await Clients.All.SendAsync("UserConnected", "newUser");
 
 		await base.OnConnectedAsync();
 	}
 
 	public async Task ServiceInfo(string user, string message)
 	{
-		System.Console.WriteLine("ServiceInfo:::" + user + "::" + message);
+		// System.Console.WriteLine("ServiceInfo:::" + user + "::" + message);
 		await Clients.All.SendAsync("ServiceInfo", user, message);
 	}
 }
