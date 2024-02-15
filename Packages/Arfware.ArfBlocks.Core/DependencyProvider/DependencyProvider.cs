@@ -65,9 +65,13 @@ namespace Arfware.ArfBlocks.Core
 			}
 			else
 			{
-				var creatingType = dependencies[type];
-				var constructors = creatingType.GetConstructors();
 
+				Type creatingType;
+				dependencies.TryGetValue(type, out creatingType);
+				if (creatingType == null)
+					ThrowTypeError(type);
+
+				var constructors = creatingType.GetConstructors();
 				if (constructors.Length == 0)
 				{
 					return (T)Activator.CreateInstance(creatingType);
@@ -98,9 +102,20 @@ namespace Arfware.ArfBlocks.Core
 				var constructorParameters = constructorInfo.GetParameters();
 				var objects = constructorParameters.Select((p) => RecursiveGetInstance(p.ParameterType)).ToArray();
 
-				var creatingType = dependencies[type];
+				Type creatingType;
+				dependencies.TryGetValue(type, out creatingType);
+				if (creatingType == null)
+					ThrowTypeError(type);
+
 				return Activator.CreateInstance(creatingType, objects);
 			}
+		}
+
+		private void ThrowTypeError(Type type)
+		{
+			var message = $"Error: Dependency not found for: {type.FullName}";
+			System.Console.WriteLine(message);
+			throw new Exception(message);
 		}
 	}
 }
