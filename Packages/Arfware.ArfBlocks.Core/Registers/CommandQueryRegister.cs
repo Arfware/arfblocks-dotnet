@@ -6,6 +6,7 @@ using Arfware.ArfBlocks.Core.Abstractions;
 using Arfware.ArfBlocks.Core.Attributes;
 using Arfware.ArfBlocks.Core.Models;
 using Arfware.ArfBlocks.Core.Settings;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Arfware.ArfBlocks.Core
 {
@@ -15,12 +16,19 @@ namespace Arfware.ArfBlocks.Core
 	{
 		private static ApplicationDataModel applicationModel;
 		private static List<EndpointModel> commandQueryList;
-
+		public static EndpointModel PreOperateEndpoint;
+		public static EndpointModel PostOperateEndpoint;
 
 		public static void RegisterAssemblyWithName(string assemblyName)
 		{
 			var assembly = Assembly.Load(assemblyName);
 			CommandQueryRegister.RegisterAssembly(assembly);
+		}
+
+		public static void SetOperateHandler(Type preOperateHandler, Type postOperateHandler)
+		{
+			CommandQueryRegister.PreOperateEndpoint = CommandQueryRegister.commandQueryList.FirstOrDefault(o => o.Handler == preOperateHandler);
+			CommandQueryRegister.PostOperateEndpoint = CommandQueryRegister.commandQueryList.FirstOrDefault(o => o.Handler == postOperateHandler); ;
 		}
 
 		public static void RegisterAssembly(Assembly assembly)

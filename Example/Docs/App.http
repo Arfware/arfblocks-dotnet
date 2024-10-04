@@ -1,0 +1,10 @@
+@Url= http://localhost:5001
+
+### Get Users
+POST {{Url}}/Users/Login
+Accept: application/json
+Content-Type: application/json
+
+{
+	"email":"mary@company.com"
+}

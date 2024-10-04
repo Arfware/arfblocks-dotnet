@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Arfware.ArfBlocks.Core.Abstractions;
+using Arfware.ArfBlocks.Core.Models;
 using Arfware.ArfBlocks.Core.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,8 @@ namespace Arfware.ArfBlocks.Core.Extentions
 			public LogLevels LogLevel { get; set; }
 			public string ApplicationProjectNamespace { get; set; }
 			public IConfigurationSection ConfigurationSection { get; set; }
+			public Type PreOperateHandler;
+			public Type PostOperateHandler;
 		}
 
 		public static IServiceCollection AddArfBlocks(this IServiceCollection services, Action<AddArfBlocksOptions> options)
@@ -22,6 +26,7 @@ namespace Arfware.ArfBlocks.Core.Extentions
 			options(opt);
 
 			CommandQueryRegister.RegisterAssemblyWithName(opt.ApplicationProjectNamespace);
+			CommandQueryRegister.SetOperateHandler(opt.PreOperateHandler, opt.PostOperateHandler);
 
 			var applicationData = CommandQueryRegister.GetApplicationData();
 			var moduleArfBlocksSettings = opt.ConfigurationSection.Get(applicationData.ConfigurationClassType);
