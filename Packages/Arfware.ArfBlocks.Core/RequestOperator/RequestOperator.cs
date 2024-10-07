@@ -3,6 +3,7 @@ using Arfware.ArfBlocks.Core.Abstractions;
 using Arfware.ArfBlocks.Core.Exceptions;
 using Arfware.ArfBlocks.Core.Models;
 using Arfware.ArfBlocks.Core.RequestResults;
+using Arfware.ArfBlocks.Core.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,90 +23,87 @@ namespace Arfware.ArfBlocks.Core
 			_dependencyProvider = dependencyProvider;
 		}
 
-		private async Task RunPreOperate(EndpointModel endpoint, IRequestModel payload)
-		{
-			if (CommandQueryRegister.PreOperateEndpoint == null)
-				return;
-
-			var requestPayload = (dynamic)Activator.CreateInstance(CommandQueryRegister.PreOperateEndpoint.RequestModel);
-			requestPayload.Endpoint = endpoint;
-			requestPayload.Payload = payload;
-
-			await OperateByEndpoint(CommandQueryRegister.PreOperateEndpoint, requestPayload);
-		}
-
-
-		private async Task RunPostOperate(EndpointModel endpoint, ArfBlocksRequestResult response)
-		{
-			if (CommandQueryRegister.PostOperateEndpoint == null)
-				return;
-
-			var requestPayload = (dynamic)Activator.CreateInstance(CommandQueryRegister.PostOperateEndpoint.RequestModel);
-			requestPayload.Endpoint = endpoint;
-			requestPayload.Response = response;
-
-			await OperateByEndpoint(CommandQueryRegister.PostOperateEndpoint, requestPayload);
-		}
-
 		// For HTTP Requests
 		public async Task<ActionResult> OperateHttpRequest<T>(IRequestModel payload = null) where T : class
 		{
 			var endpoint = this.GetTypeByRefencedType<T>();
-
-			await RunPreOperate(endpoint, payload);
-
 			ArfBlocksRequestResult requestResult = await OperateByEndpoint(endpoint, payload);
 
-			await RunPostOperate(endpoint, requestResult);
-
-			return ConvertRequestResultToActionResult(requestResult);
+			return new OkObjectResult(requestResult);
 		}
 
 		public async Task<ArfBlocksRequestResult> OperateMiddlewareRequest(EndpointModel endpoint, IRequestModel payload)
 		{
-			System.Console.WriteLine(payload.GetType());
-
-			await RunPreOperate(endpoint, payload);
-
-			ArfBlocksRequestResult requestResult = await OperateByEndpoint(endpoint, payload);
-
-			await RunPostOperate(endpoint, requestResult);
-
-			return requestResult;
+			return await OperateByEndpoint(endpoint, payload);
 		}
 
 		// For Internal Requests
 		public async Task<ArfBlocksRequestResult> OperateInternalRequest<T>(IRequestModel payload = null) where T : class
 		{
 			var endpoint = this.GetTypeByRefencedType<T>();
-
-			await RunPreOperate(endpoint, payload);
-
-			ArfBlocksRequestResult requestResult = await OperateByEndpoint(endpoint, payload);
-
-			await RunPostOperate(endpoint, requestResult);
-
-			return requestResult;
+			return await OperateByEndpoint(endpoint, payload);
 		}
 
 		// For HTTP Requests
 		public async Task<ArfBlocksRequestResult> OperateEvent<T>(IRequestModel payload = null) where T : class
 		{
 			var endpoint = this.GetTypeByRefencedType<T>();
-
-			await RunPreOperate(endpoint, payload);
-
-			ArfBlocksRequestResult requestResult = await OperateByEndpoint(endpoint, payload);
-
-			await RunPostOperate(endpoint, requestResult);
-
-			return requestResult;
+			return await OperateByEndpoint(endpoint, payload);
 		}
 
 		#region Request Operating
 
+		private async Task<ArfBlocksRequestResult> RunPreOperate(EndpointModel endpoint, IRequestModel payload)
+		{
+			if (CommandQueryRegister.PreOperateEndpoint == null)
+				return null;
+
+			if (endpoint.Handler.FullName == CommandQueryRegister.PreOperateEndpoint.Handler.FullName
+ 			 || endpoint.Handler.FullName == CommandQueryRegister.PostOperateEndpoint.Handler.FullName)
+				return null;
+
+			var requestPayload = (dynamic)Activator.CreateInstance(CommandQueryRegister.PreOperateEndpoint.RequestModel);
+			requestPayload.Endpoint = endpoint;
+			requestPayload.Payload = payload;
+
+			return await OperateByEndpoint(CommandQueryRegister.PreOperateEndpoint, requestPayload);
+		}
+
+
+		private async Task<ArfBlocksRequestResult> RunPostOperate(EndpointModel endpoint, ArfBlocksRequestResult response)
+		{
+			if (CommandQueryRegister.PostOperateEndpoint == null)
+				return null;
+
+			if (endpoint.Handler.FullName == CommandQueryRegister.PreOperateEndpoint.Handler.FullName
+			 || endpoint.Handler.FullName == CommandQueryRegister.PostOperateEndpoint.Handler.FullName)
+				return null;
+
+			var requestPayload = (dynamic)Activator.CreateInstance(CommandQueryRegister.PostOperateEndpoint.RequestModel);
+			requestPayload.Endpoint = endpoint;
+			requestPayload.Response = response;
+
+			return await OperateByEndpoint(CommandQueryRegister.PostOperateEndpoint, requestPayload);
+		}
+
 		private async Task<ArfBlocksRequestResult> OperateByEndpoint(EndpointModel endpoint, IRequestModel payload)
 		{
+			var totalDuration = 0;
+			// Pre Operate
+			try
+			{
+				var preOperateResult = await RunPreOperate(endpoint, payload);
+				totalDuration += preOperateResult?.DurationMs ?? 0;
+			}
+			catch (Exception ex)
+			{
+				System.Console.WriteLine($"\nError in RunPreOperate: {ex.Message} \n");
+			}
+
+			var stopWatch = System.Diagnostics.Stopwatch.StartNew();
+
+			// Operate
+			ArfBlocksRequestResult result = null;
 			try
 			{
 				// Create a CancellationToken
@@ -119,24 +117,22 @@ namespace Arfware.ArfBlocks.Core
 				await OperateVerificationPhase(endpoint.Verificator, payload, cancellationToken);
 
 				// Handle Request
-				var result = await OperateHandlingPhase(endpoint.Handler, endpoint.PreHandler, endpoint.PostHandler, endpoint.DataAccess, payload, cancellationToken);
-
-				return await Task.FromResult(result);
+				result = await OperateHandlingPhase(endpoint.Handler, endpoint.PreHandler, endpoint.PostHandler, endpoint.DataAccess, payload, cancellationToken);
 			}
 			catch (ArfBlocksRequestHandlerNotFoundException exception)
 			{
 				// do something
-				return ArfBlocksResults.NotFound(exception.Message);
+				result = ArfBlocksResults.NotFound(exception.Message);
 			}
 			catch (ArfBlocksVerificationException exception) // Verification Error
 			{
 				// do something
-				return ArfBlocksResults.BadRequest(exception.Message);
+				result = ArfBlocksResults.BadRequest(exception.Message);
 			}
 			catch (ArfBlocksValidationException exception) // Validation Error
 			{
 				// do something
-				return ArfBlocksResults.BadRequest(exception.Message);
+				result = ArfBlocksResults.BadRequest(exception.Message);
 			}
 			catch (Exception exception) // CODE Error
 			{
@@ -144,8 +140,26 @@ namespace Arfware.ArfBlocks.Core
 				Console.WriteLine(exception.StackTrace);
 
 				// do something
-				return ArfBlocksResults.InternalServerError(exception.Message);
+				result = ArfBlocksResults.InternalServerError(exception.Message);
 			}
+
+			stopWatch.Stop();
+			result.DurationMs = Convert.ToInt32(stopWatch.ElapsedMilliseconds);
+
+			// Post Operate
+			try
+			{
+				var postOperateResult = await RunPostOperate(endpoint, result);
+				totalDuration += postOperateResult?.DurationMs ?? 0;
+			}
+			catch (Exception ex)
+			{
+				System.Console.WriteLine($"\nError in RunPostOperate: {ex.Message} \n");
+			}
+
+			result.TotalDurationMs = totalDuration + result.DurationMs;
+
+			return await Task.FromResult(result);
 		}
 
 		#endregion

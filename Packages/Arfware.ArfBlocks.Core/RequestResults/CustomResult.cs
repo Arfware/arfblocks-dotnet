@@ -9,6 +9,8 @@ namespace Arfware.ArfBlocks.Core
 		public int StatusCode { get; set; }
 		public bool HasError { get; set; }
 		public string Code { get; set; }
+		public int DurationMs { get; set; }
+		public int TotalDurationMs { get; set; }
 		public object Page { get; set; }
 		public ArfBlocksRequestResultError Error { get; set; }
 		public bool IsPayloadArray { get; set; }
@@ -20,6 +22,5 @@ namespace Arfware.ArfBlocks.Core
 		public string Code { get; set; }
 		public string Message { get; set; }
 		public string StackTrace { get; set; }
-
 	}
 }
