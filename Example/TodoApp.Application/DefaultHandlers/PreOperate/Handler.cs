@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Arfware.ArfBlocks.Core.Attributes;
 using Arfware.ArfBlocks.Core.Models;
 using System.Text.Json;
+using System.Net;
 
 namespace TodoApp.Application.DefaultHandlers.Operators.Commands.PreOperate;
 
@@ -33,21 +34,23 @@ public class Handler : IRequestHandler
 		var requestPayload = (RequestModel)payload;
 
 		var currentUserId = Guid.Empty; //_clientService.GetCurrentUserId();
-		await ProcessData(requestPayload.Endpoint, requestPayload.Payload, currentUserId);
+		var currentUserIp = _clientService.GetIpAdress();
+		await ProcessData(requestPayload.Endpoint, requestPayload.Payload, currentUserId, currentUserIp);
 
 		// Map to Response Model
 		var mappedResponseModel = mapper.MapToResponseModel();
 		return ArfBlocksResults.Success(mappedResponseModel);
 	}
 
-	public async Task ProcessData(EndpointModel endpoint, IRequestModel payload, Guid currentUserId)
+	public async Task ProcessData(EndpointModel endpoint, IRequestModel payload, Guid currentUserId, IPAddress ipAddress)
 	{
 		// NOP:
 		await Task.CompletedTask;
 
 		System.Console.WriteLine("\n\n--------------------");
 		System.Console.WriteLine($"Object: {endpoint.ObjectName} | Action: {endpoint.ActionName} | Type: {endpoint.EndpointType}");
-		System.Console.WriteLine($"UserId: {currentUserId}");
+		System.Console.WriteLine($"User ID: {currentUserId}");
+		System.Console.WriteLine($"User IP: {ipAddress}");
 		System.Console.WriteLine(JsonSerializer.Serialize(payload as object, new JsonSerializerOptions() { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
 		System.Console.WriteLine("--------------------\n\n");
 	}
