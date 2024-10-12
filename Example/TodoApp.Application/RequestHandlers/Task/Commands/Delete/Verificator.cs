@@ -23,7 +23,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Delete
 			_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 		}
 
-		public async Task VerificateActor(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task VerificateActor(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;
@@ -39,7 +39,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Delete
 				throw new ArfBlocksVerificationException(verificationResult.ErrorCode);
 		}
 
-		public async Task VerificateDomain(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task VerificateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			await Task.CompletedTask;
 		}

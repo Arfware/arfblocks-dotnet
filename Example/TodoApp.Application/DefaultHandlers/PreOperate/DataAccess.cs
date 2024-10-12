@@ -12,9 +12,9 @@ public class DataAccess : BaseDataAccessLayer<User>, IDataAccess
 {
 	private readonly ApplicationDbContext _dbContext;
 
-	public DataAccess(ArfBlocksDependencyProvider depencyProvider)
-		: base(depencyProvider.GetInstance<ApplicationDbContext>())
+	public DataAccess(ArfBlocksDependencyProvider dependencyProvider)
+		: base(dependencyProvider.GetInstance<ApplicationDbContext>())
 	{
-		_dbContext = depencyProvider.GetInstance<ApplicationDbContext>();
+		_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 	}
 }

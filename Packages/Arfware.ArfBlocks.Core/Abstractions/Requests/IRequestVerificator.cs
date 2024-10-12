@@ -6,7 +6,7 @@ namespace Arfware.ArfBlocks.Core.Abstractions
 {
 	public interface IRequestVerificator
 	{
-		Task VerificateActor(IRequestModel payload, CancellationToken cancellationToken);
-		Task VerificateDomain(IRequestModel payload, CancellationToken cancellationToken);
+		Task VerificateActor(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken);
+		Task VerificateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken);
 	}
 }

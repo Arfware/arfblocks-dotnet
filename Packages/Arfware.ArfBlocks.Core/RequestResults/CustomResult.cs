@@ -9,6 +9,8 @@ namespace Arfware.ArfBlocks.Core
 		public int StatusCode { get; set; }
 		public bool HasError { get; set; }
 		public string Code { get; set; }
+		public string RequestId { get; set; }
+		public string ParentRequestId { get; set; }
 		public int DurationMs { get; set; }
 		public int TotalDurationMs { get; set; }
 		public object Page { get; set; }

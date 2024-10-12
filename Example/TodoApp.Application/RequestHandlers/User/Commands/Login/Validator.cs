@@ -1,12 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using Arfware.ArfBlocks.Core.Abstractions;
-using Microsoft.AspNetCore.Http;
-using Arfware.ArfBlocks.Core.Exceptions;
-using Arfware.ArfBlocks.Core;
-using TodoApp.Infrastructure.Services;
-using System.Threading;
-
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
 	public class Validator : IRequestValidator
@@ -17,7 +8,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			_dbValidator = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public void ValidateRequestModel(IRequestModel payload, CancellationToken cancellationToken)
+		public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;
@@ -31,7 +22,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			}
 		}
 
-		public async Task ValidateDomain(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;

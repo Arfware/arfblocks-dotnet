@@ -1,8 +1,3 @@
-using System;
-using Arfware.ArfBlocks.Core.Abstractions;
-using FluentValidation;
-using TodoApp.Domain.Entities;
-
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
 	public class ResponseModel : IResponseModel

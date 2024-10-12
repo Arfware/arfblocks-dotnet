@@ -24,7 +24,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Create
 			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task Handle(IRequestModel payload, ArfBlocksRequestResult response, CancellationToken cancellationToken)
+		public async Task Handle(IRequestModel payload, ArfBlocksRequestResult response, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			var responsePayload = (ResponseModel)response.Payload;
 			var currentClientId = _clientService.GetCurrentUserId();

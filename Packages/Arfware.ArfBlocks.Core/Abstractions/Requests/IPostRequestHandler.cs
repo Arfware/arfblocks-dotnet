@@ -6,6 +6,6 @@ namespace Arfware.ArfBlocks.Core.Abstractions
 {
 	public interface IPostRequestHandler
 	{
-		Task Handle(IRequestModel payload, ArfBlocksRequestResult response, CancellationToken cancellationToken);
+		Task Handle(IRequestModel payload, ArfBlocksRequestResult response, IEndpointContext context, CancellationToken cancellationToken);
 	}
 }

@@ -1,21 +1,13 @@
-using System;
-using TodoApp.Domain.Entities;
-using Arfware.ArfBlocks.Core;
-using Arfware.ArfBlocks.Core.Abstractions;
-using TodoApp.Infrastructure.RelationalDB;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
 	public class DataAccess : BaseDataAccessLayer<User>, IDataAccess
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public DataAccess(ArfBlocksDependencyProvider depencyProvider)
-			: base(depencyProvider.GetInstance<ApplicationDbContext>())
+		public DataAccess(ArfBlocksDependencyProvider dependencyProvider)
+			: base(dependencyProvider.GetInstance<ApplicationDbContext>())
 		{
-			_dbContext = depencyProvider.GetInstance<ApplicationDbContext>();
+			_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 		}
 
 		public async Task<User> GetUserByEmail(string email)

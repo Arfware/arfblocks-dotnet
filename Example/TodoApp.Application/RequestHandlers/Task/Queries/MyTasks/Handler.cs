@@ -21,7 +21,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Queries.MyTasks
 			_dbValidationService = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			var currentUserId = _clientService.GetCurrentUserId();
 

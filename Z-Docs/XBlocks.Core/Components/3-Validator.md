@@ -17,12 +17,12 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Create
 			//....
 		}
 
-		public void ValidateRequestModel(IRequestModel payload, CancellationToken cancellationToken)
+		public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			//....
 		}
 
-		public async Task ValidateDomain(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			//....
 		}
@@ -51,7 +51,7 @@ public class RequestModel_Validator : AbstractValidator<RequestModel>
 ```
 
 ```c#
-public void ValidateRequestModel(IRequestModel payload, CancellationToken cancellationToken)
+public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 {
 	// Get Request Payload
 	var requestModel = (RequestModel)payload;
@@ -71,7 +71,7 @@ public void ValidateRequestModel(IRequestModel payload, CancellationToken cancel
 In this method; you must validate domain for Block operation.
 
 ```c#
-public async Task ValidateDomain(IRequestModel payload, CancellationToken cancellationToken)
+public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 {
 	// Get Request Payload
 	var requestModel = (RequestModel)payload;

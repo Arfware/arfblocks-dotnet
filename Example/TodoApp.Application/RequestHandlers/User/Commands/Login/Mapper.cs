@@ -1,6 +1,3 @@
-using System;
-using TodoApp.Domain.Entities;
-
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
 	public class Mapper

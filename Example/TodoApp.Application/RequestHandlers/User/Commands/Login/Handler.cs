@@ -1,16 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using System.Collections;
-using Arfware.ArfBlocks.Core.Abstractions;
-using Arfware.ArfBlocks.Core.RequestResults;
-using Arfware.ArfBlocks.Core;
-using Microsoft.AspNetCore.Http;
-using BusinessModules.Management.Infrastructure.Services;
-using TodoApp.Infrastructure.Services;
-using System.Threading;
-using Microsoft.AspNetCore.Authorization;
-using Arfware.ArfBlocks.Core.Attributes;
-
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
 	[AllowAnonymousHandler]
@@ -29,10 +16,13 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			var mapper = new Mapper();
 			var requestPayload = (RequestModel)payload;
+
+			var endpointContext = (EndpointContext)context;
+			System.Console.WriteLine(endpointContext.UsersCount);
 
 			// Get User from DB
 			var user = await dataAccessLayer.GetUserByEmail(requestPayload.Email);

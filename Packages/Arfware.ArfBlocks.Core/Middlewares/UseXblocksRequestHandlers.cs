@@ -144,6 +144,7 @@ namespace Arfware.ArfBlocks.Core
 					System.Console.WriteLine(infoLog);
 				}
 
+				// TODO: Change this error responses as ArfBlocksRequestResult
 				var endpoint = CommandQueryRegister.GetEndpointByObjectAndAction(objectName, actionName);
 				if (endpoint == null)
 				{

@@ -88,7 +88,18 @@ namespace Arfware.ArfBlocks.Core
 
 		private async Task<ArfBlocksRequestResult> OperateByEndpoint(EndpointModel endpoint, IRequestModel payload)
 		{
+			var requestId = Guid.NewGuid();
 			var totalDuration = 0;
+
+			System.Console.WriteLine(endpoint.Context == null);
+			System.Console.WriteLine(endpoint.Context.FullName);
+
+			IEndpointContext context = null;
+			if (endpoint.Context != null)
+			{
+				context = (IEndpointContext)Activator.CreateInstance(endpoint.Context, _dependencyProvider);
+			}
+
 			// Pre Operate
 			try
 			{
@@ -111,13 +122,13 @@ namespace Arfware.ArfBlocks.Core
 				var cancellationToken = cts.Token;
 
 				// Validate Request
-				await OperateValidationPhase(endpoint.Validator, payload, cancellationToken);
+				await OperateValidationPhase(endpoint.Validator, payload, context, cancellationToken);
 
 				// Verify Request
-				await OperateVerificationPhase(endpoint.Verificator, payload, cancellationToken);
+				await OperateVerificationPhase(endpoint.Verificator, payload, context, cancellationToken);
 
 				// Handle Request
-				result = await OperateHandlingPhase(endpoint.Handler, endpoint.PreHandler, endpoint.PostHandler, endpoint.DataAccess, payload, cancellationToken);
+				result = await OperateHandlingPhase(endpoint.Handler, endpoint.PreHandler, endpoint.PostHandler, endpoint.DataAccess, payload, context, cancellationToken);
 			}
 			catch (ArfBlocksRequestHandlerNotFoundException exception)
 			{
@@ -158,6 +169,7 @@ namespace Arfware.ArfBlocks.Core
 			}
 
 			result.TotalDurationMs = totalDuration + result.DurationMs;
+			result.RequestId = requestId.ToString();
 
 			return await Task.FromResult(result);
 		}
@@ -166,31 +178,31 @@ namespace Arfware.ArfBlocks.Core
 
 		#region Request Operating Phases
 
-		private async Task OperateVerificationPhase(Type verificator, IRequestModel model, CancellationToken cancellationToken)
+		private async Task OperateVerificationPhase(Type verificator, IRequestModel model, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			if (verificator != null)
 			{
 				IRequestVerificator requestVerificator = (IRequestVerificator)Activator.CreateInstance(verificator, _dependencyProvider);
-				await requestVerificator.VerificateActor(model, cancellationToken);
-				await requestVerificator.VerificateDomain(model, cancellationToken);
+				await requestVerificator.VerificateActor(model, context, cancellationToken);
+				await requestVerificator.VerificateDomain(model, context, cancellationToken);
 			}
 		}
 
-		private async Task OperateValidationPhase(Type validator, IRequestModel model, CancellationToken cancellationToken)
+		private async Task OperateValidationPhase(Type validator, IRequestModel model, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			if (validator != null)
 			{
 				IRequestValidator requestValidator = (IRequestValidator)Activator.CreateInstance(validator, _dependencyProvider);
-				requestValidator.ValidateRequestModel(model, cancellationToken);
-				await requestValidator.ValidateDomain(model, cancellationToken);
+				requestValidator.ValidateRequestModel(model, context, cancellationToken);
+				await requestValidator.ValidateDomain(model, context, cancellationToken);
 			}
 		}
 
-		private async Task<ArfBlocksRequestResult> OperateHandlingPhase(Type handlerType, Type preHandlerType, Type postHandlerType, Type dataAccess, IRequestModel model, CancellationToken cancellationToken)
+		private async Task<ArfBlocksRequestResult> OperateHandlingPhase(Type handlerType, Type preHandlerType, Type postHandlerType, Type dataAccess, IRequestModel model, IEndpointContext context, CancellationToken cancellationToken)
 		{
-			object dataAccessInstance = null;
 			ArfBlocksRequestResult result = null;
 
+			object dataAccessInstance = null;
 			if (dataAccess != null)
 			{
 				dataAccessInstance = Activator.CreateInstance(dataAccess, _dependencyProvider);
@@ -210,7 +222,7 @@ namespace Arfware.ArfBlocks.Core
 					requestHandler = (IPreRequestHandler)Activator.CreateInstance(preHandlerType, _dependencyProvider);
 				}
 
-				await requestHandler.Handle(model, cancellationToken);
+				await requestHandler.Handle(model, context, cancellationToken);
 			}
 
 			// HANDLER
@@ -227,7 +239,7 @@ namespace Arfware.ArfBlocks.Core
 					requestHandler = (IRequestHandler)Activator.CreateInstance(handlerType, _dependencyProvider);
 				}
 
-				result = await requestHandler.Handle(model, cancellationToken);
+				result = await requestHandler.Handle(model, context, cancellationToken);
 			}
 			else
 			{
@@ -248,7 +260,7 @@ namespace Arfware.ArfBlocks.Core
 					postRequestHandler = (IPostRequestHandler)Activator.CreateInstance(postHandlerType, _dependencyProvider);
 				}
 
-				await postRequestHandler.Handle(model, result, cancellationToken);
+				await postRequestHandler.Handle(model, result, context, cancellationToken);
 			}
 
 			return result;
@@ -324,6 +336,7 @@ namespace Arfware.ArfBlocks.Core
 				DataAccess = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IDataAccess))),
 				Validator = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestValidator))),
 				Verificator = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestVerificator))),
+				Context = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IEndpointContext))),
 			};
 
 			return endpoint;

@@ -12,9 +12,9 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Queries.Detail
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public DataAccess(ArfBlocksDependencyProvider depencyProvider)
+		public DataAccess(ArfBlocksDependencyProvider dependencyProvider)
 		{
-			_dbContext = depencyProvider.GetInstance<ApplicationDbContext>();
+			_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 		}
 
 		public async Task<TodoTask> GetFilledTaskById(Guid taskId)

@@ -17,7 +17,7 @@ namespace TodoApp.Application.RequestHandlers.Departments.Queries.All
 			_dataAccessLayer = (DataAccess)dataAccess;
 		}
 
-		public async Task Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// NOP:
 			await Task.CompletedTask;

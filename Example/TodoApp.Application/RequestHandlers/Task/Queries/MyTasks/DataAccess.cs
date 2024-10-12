@@ -14,9 +14,9 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Queries.MyTasks
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public DataAccess(ArfBlocksDependencyProvider depencyProvider)
+		public DataAccess(ArfBlocksDependencyProvider dependencyProvider)
 		{
-			_dbContext = depencyProvider.GetInstance<ApplicationDbContext>();
+			_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 		}
 
 		public async Task<List<TodoTask>> GetPendingTasks(Guid userId)

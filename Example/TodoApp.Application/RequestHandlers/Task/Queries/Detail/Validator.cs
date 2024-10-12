@@ -17,7 +17,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Queries.Detail
 			_dbValidator = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public void ValidateRequestModel(IRequestModel payload, CancellationToken cancellationToken)
+		public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestModel = (RequestModel)payload;
@@ -31,7 +31,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Queries.Detail
 			}
 		}
 
-		public async Task ValidateDomain(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestModel = (RequestModel)payload;

@@ -140,6 +140,7 @@ namespace Arfware.ArfBlocks.Core
 							DataAccess = typesInAssembly.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IDataAccess))),
 							Validator = typesInAssembly.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestValidator))),
 							Verificator = typesInAssembly.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestVerificator))),
+							Context = typesInAssembly.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IEndpointContext))),
 							IsInternal = attributes.IsInternal,
 							IsAuthorize = attributes.IsAuthorize,
 							IsAllowAnonymous = attributes.IsAllowAnonymous,

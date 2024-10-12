@@ -15,14 +15,14 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Delete
 		private readonly DataAccess dataAccessLayer;
 		private readonly CurrentClientService _clientService;
 		private readonly ActivityLogService _activityLogService;
-		public Handler(ArfBlocksDependencyProvider depencyProvider, object dataAccess)
+		public Handler(ArfBlocksDependencyProvider dependencyProvider, object dataAccess)
 		{
 			dataAccessLayer = (DataAccess)dataAccess;
-			_clientService = depencyProvider.GetInstance<CurrentClientService>();
-			_activityLogService = depencyProvider.GetInstance<ActivityLogService>();
+			_clientService = dependencyProvider.GetInstance<CurrentClientService>();
+			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Payload
 			var requestPayload = (RequestModel)payload;

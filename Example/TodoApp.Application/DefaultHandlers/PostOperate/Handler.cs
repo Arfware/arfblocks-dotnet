@@ -28,7 +28,7 @@ public class Handler : IRequestHandler
 		_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 	}
 
-	public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+	public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 	{
 		var mapper = new Mapper();
 		var requestPayload = (RequestModel)payload;
@@ -48,6 +48,8 @@ public class Handler : IRequestHandler
 		await Task.CompletedTask;
 
 		System.Console.WriteLine("\n\n--------------------");
+		System.Console.WriteLine($"Request Id: {response.RequestId}");
+		System.Console.WriteLine($"Parent Request Id: {response.ParentRequestId}");
 		System.Console.WriteLine($"Object: {endpoint.ObjectName} | Action: {endpoint.ActionName} | Type: {endpoint.EndpointType}");
 		System.Console.WriteLine($"Status Code: {response.StatusCode} | ResponseCode: {response.Code} | Has Error: {response.HasError} | ErrorCode?: {response.Error?.Message}");
 		System.Console.WriteLine($"User ID: {currentUserId}");

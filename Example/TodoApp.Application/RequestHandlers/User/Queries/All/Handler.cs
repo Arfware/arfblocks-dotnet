@@ -23,7 +23,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Queries.All
 			_dbValidationService = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get All Users from DB
 			var allUsers = await _dataAccessLayer.GetAllUsers();

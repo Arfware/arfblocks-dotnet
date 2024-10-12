@@ -6,7 +6,7 @@ namespace Arfware.ArfBlocks.Core.Abstractions
 {
 	public interface IRequestValidator
 	{
-		void ValidateRequestModel(IRequestModel payload, CancellationToken cancellationToken);
-		Task ValidateDomain(IRequestModel payload, CancellationToken cancellationToken);
+		void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken);
+		Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken);
 	}
 }

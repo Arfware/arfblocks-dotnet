@@ -22,7 +22,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Queries.Me
 			_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			var mapper = new Mapper();
 			var currentClientId = _clientService.GetCurrentUserId();

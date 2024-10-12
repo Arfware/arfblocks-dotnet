@@ -21,6 +21,7 @@ namespace Arfware.ArfBlocks.Core.Models
 		public Type DataAccess { get; set; }
 		public Type Validator { get; set; }
 		public Type Verificator { get; set; }
+		public Type Context { get; set; }
 		public EndpointTypes EndpointType { get; set; }
 		public bool IsResponseModelArray { get; set; }
 		public bool IsInternal { get; set; } // Handler Marked as InternalAttribute

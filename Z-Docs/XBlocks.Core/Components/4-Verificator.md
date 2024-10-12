@@ -17,13 +17,13 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Update
 			//....
 		}
 
-		public async Task VerificateActor(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task VerificateActor(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			//...
 		}
 
 
-		public async Task VerificateDomain(IRequestModel payload, CancellationToken cancellationToken)
+		public async Task VerificateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			//...
 		}
@@ -36,7 +36,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Update
 In this method; you must verify actor for Block Operation.
 
 ```c#
-public async Task VerificateActor(IRequestModel payload, CancellationToken cancellationToken)
+public async Task VerificateActor(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 {
 	// Get Request Payload
 	var requestPayload = (RequestModel)payload;
@@ -51,7 +51,7 @@ public async Task VerificateActor(IRequestModel payload, CancellationToken cance
 In this method; you must verify domain for Block operation.
 
 ```c#
-public async Task VerificateDomain(IRequestModel payload, CancellationToken cancellationToken)
+public async Task VerificateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
 {
 	// Get Request Payload
 	var requestPayload = (RequestModel)payload;

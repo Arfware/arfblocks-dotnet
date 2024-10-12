@@ -12,10 +12,10 @@ namespace TodoApp.Application.RequestHandlers.Users.Queries.Me
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public DataAccess(ArfBlocksDependencyProvider depencyProvider)
-			: base(depencyProvider.GetInstance<ApplicationDbContext>())
+		public DataAccess(ArfBlocksDependencyProvider dependencyProvider)
+			: base(dependencyProvider.GetInstance<ApplicationDbContext>())
 		{
-			_dbContext = depencyProvider.GetInstance<ApplicationDbContext>();
+			_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 		}
 
 		public async Task<User> GetUserById(Guid userId)

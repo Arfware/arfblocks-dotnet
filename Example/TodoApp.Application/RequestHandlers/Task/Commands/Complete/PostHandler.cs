@@ -18,7 +18,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Complete
 			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task Handle(IRequestModel payload, ArfBlocksRequestResult response, CancellationToken cancellationToken)
+		public async Task Handle(IRequestModel payload, ArfBlocksRequestResult response, IEndpointContext context, CancellationToken cancellationToken)
 		{
 			var requestPayload = (RequestModel)payload;
 			var responsePayload = (ResponseModel)response.Payload;
