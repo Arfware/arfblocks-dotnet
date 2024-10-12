@@ -10,8 +10,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Arfware.ArfBlocks.Core
 {
-
-
 	public class CommandQueryRegister
 	{
 		private static ApplicationDataModel applicationModel;
@@ -127,6 +125,7 @@ namespace Arfware.ArfBlocks.Core
 
 						var names = ParseNamespace(nameSpace);
 						var attributes = GetAttributes(type);
+
 						var endpoint = new EndpointModel()
 						{
 							ObjectName = names.objectName,
@@ -144,6 +143,7 @@ namespace Arfware.ArfBlocks.Core
 							IsInternal = attributes.IsInternal,
 							IsAuthorize = attributes.IsAuthorize,
 							IsAllowAnonymous = attributes.IsAllowAnonymous,
+							IsEventHandler = attributes.IsEventHandler,
 						};
 
 						if (endpoint.ResponseModel != null)
@@ -157,7 +157,7 @@ namespace Arfware.ArfBlocks.Core
 			return list;
 		}
 
-		private static (string objectName, string actionName) ParseNamespace(string typeNamespace)
+		public static (string objectName, string actionName) ParseNamespace(string typeNamespace)
 		{
 			var parts = typeNamespace.Split('.');
 
@@ -168,7 +168,7 @@ namespace Arfware.ArfBlocks.Core
 			return (parts[length - 3], parts[length - 1]);
 		}
 
-		private static EndpointModel.EndpointTypes GetEndpointType(string nameSpace)
+		public static EndpointModel.EndpointTypes GetEndpointType(string nameSpace)
 		{
 			if (nameSpace.Contains(".Commands."))
 				return EndpointModel.EndpointTypes.Command;
@@ -178,11 +178,12 @@ namespace Arfware.ArfBlocks.Core
 			throw new Exception("Command Query Register Error: Endpoint Type Could Not Determined !");
 		}
 
-		private static (bool IsInternal, bool IsAuthorize, bool IsAllowAnonymous) GetAttributes(Type type)
+		public static (bool IsInternal, bool IsAuthorize, bool IsAllowAnonymous, bool IsEventHandler) GetAttributes(Type type)
 		{
 			bool isInternal = false;
 			bool isAuthorize = false;
 			bool isAllowAnonymous = false;
+			bool isEventHandler = false;
 
 			var attrs = System.Attribute.GetCustomAttributes(type).ToList();  // Reflection.  
 			attrs.ForEach((attr) =>
@@ -193,13 +194,15 @@ namespace Arfware.ArfBlocks.Core
 					isAuthorize = true;
 				else if (attr is AllowAnonymousHandlerAttribute)
 					isAllowAnonymous = true;
+				else if (attr is EventHandlerAttribute)
+					isEventHandler = true;
 			});
 
 			// Lock Control
 			if (isAuthorize && isAllowAnonymous)
 				throw new Exception($"'{type.FullName}' marked as Authorize and AllowAnonymous Attributes. You can't use them together!");
 
-			return (isInternal, isAuthorize, isAllowAnonymous);
+			return (isInternal, isAuthorize, isAllowAnonymous, isEventHandler);
 		}
 	}
 }

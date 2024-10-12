@@ -26,6 +26,7 @@ namespace Arfware.ArfBlocks.Core.Models
 		public bool IsResponseModelArray { get; set; }
 		public bool IsInternal { get; set; } // Handler Marked as InternalAttribute
 		public bool IsAuthorize { get; set; } // Handler Marked as AuthorizeAttribute
+		public bool IsEventHandler { get; set; } // Handler Marked as EventHandlerAttribute
 		public bool IsAllowAnonymous { get; set; } // Handler Marked as AllowAnonymousAttribute
 
 		public enum EndpointTypes

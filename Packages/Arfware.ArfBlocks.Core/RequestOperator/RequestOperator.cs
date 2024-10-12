@@ -91,9 +91,6 @@ namespace Arfware.ArfBlocks.Core
 			var requestId = Guid.NewGuid();
 			var totalDuration = 0;
 
-			System.Console.WriteLine(endpoint.Context == null);
-			System.Console.WriteLine(endpoint.Context.FullName);
-
 			IEndpointContext context = null;
 			if (endpoint.Context != null)
 			{
@@ -326,17 +323,27 @@ namespace Arfware.ArfBlocks.Core
 				.Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
 				.ToList();
 
+			var names = CommandQueryRegister.ParseNamespace(nameSpace);
+			var attributes = CommandQueryRegister.GetAttributes(typeof(T));
+
 			var endpoint = new EndpointModel()
 			{
+				ObjectName = names.objectName,
+				ActionName = names.actionName,
+				EndpointType = CommandQueryRegister.GetEndpointType(nameSpace),
+				Handler = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestHandler))),
 				RequestModel = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestModel))),
 				ResponseModel = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IResponseModel) || i == typeof(IResponseModel<Array>))),
-				Handler = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestHandler))),
 				PreHandler = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IPreRequestHandler))),
 				PostHandler = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IPostRequestHandler))),
 				DataAccess = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IDataAccess))),
 				Validator = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestValidator))),
 				Verificator = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IRequestVerificator))),
 				Context = typelist.FirstOrDefault(t => t.GetInterfaces().Any(i => i == typeof(IEndpointContext))),
+				IsInternal = attributes.IsInternal,
+				IsAuthorize = attributes.IsAuthorize,
+				IsAllowAnonymous = attributes.IsAllowAnonymous,
+				IsEventHandler = attributes.IsEventHandler,
 			};
 
 			return endpoint;
