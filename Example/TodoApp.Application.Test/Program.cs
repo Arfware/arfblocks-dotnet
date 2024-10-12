@@ -26,7 +26,7 @@ await app.RunTests(app.Configuration, options =>
 	// Run Only Selected Tests
 	options.SelectedTestList = new List<Type>()
 	{
-		typeof(TodoApp.Application.RequestHandlers.Tasks.Commands.Complete.Tests.Success)
+		// typeof(TodoApp.Application.RequestHandlers.Tasks.Commands.Complete.Tests.Success)
 	};
 
 	// Skip Running Ignored Tests 

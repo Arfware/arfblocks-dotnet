@@ -73,6 +73,8 @@ public class Success : IArfBlocksTest
 		// vehicleOnDb.Year.Should().Be(requestPaylaod.Year);
 		// vehicleOnDb.Brand.Should().Be(requestPaylaod.Brand);
 		// vehicleOnDb.Model.Should().Be(requestPaylaod.Model);
+
+		throw new Exception("Test application...");
 	}
 
 

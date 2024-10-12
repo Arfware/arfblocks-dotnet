@@ -75,6 +75,9 @@ namespace Arfware.ArfBlocks.Test.Middlewares
 
 			await testOperations.PostExecuting();
 
+			if (failedTestCount > 0)
+				Environment.Exit(1);
+
 			return app;
 		}
 
