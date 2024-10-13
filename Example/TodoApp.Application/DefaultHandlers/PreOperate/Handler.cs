@@ -28,28 +28,28 @@ public class Handler : IRequestHandler
 		_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 	}
 
-	public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+	public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 	{
 		var mapper = new Mapper();
 		var requestPayload = (RequestModel)payload;
 
 		var currentUserId = Guid.Empty; //_clientService.GetCurrentUserId();
 		var currentUserIp = _clientService.GetIpAdress();
-		await ProcessData(requestPayload.Endpoint, requestPayload.Payload, currentUserId, currentUserIp);
+		await ProcessData(requestPayload.Endpoint, requestPayload.Payload, context, currentUserId, currentUserIp);
 
 		// Map to Response Model
 		var mappedResponseModel = mapper.MapToResponseModel();
 		return ArfBlocksResults.Success(mappedResponseModel);
 	}
 
-	public async Task ProcessData(EndpointModel endpoint, IRequestModel payload, Guid currentUserId, IPAddress ipAddress)
+	public async Task ProcessData(EndpointModel endpoint, IRequestModel payload, EndpointContext context, Guid currentUserId, IPAddress ipAddress)
 	{
 		// NOP:
 		await Task.CompletedTask;
 
 		System.Console.WriteLine("\n\n--------------------");
-		// System.Console.WriteLine($"Request Id: {response.RequestId}");
-		// System.Console.WriteLine($"Parent Request Id: {response.ParentRequestId}");
+		System.Console.WriteLine($"Request Id: {context.GetRequestId()}");
+		System.Console.WriteLine($"Parent Request Id: {context.GetParentRequestId()}");
 		System.Console.WriteLine($"Object: {endpoint.ObjectName} | Action: {endpoint.ActionName} | Type: {endpoint.EndpointType}");
 		System.Console.WriteLine($"User ID: {currentUserId}");
 		System.Console.WriteLine($"User IP: {ipAddress}");

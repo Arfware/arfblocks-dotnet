@@ -23,7 +23,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Update
 			_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 		}
 
-		public async Task VerificateActor(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task VerificateActor(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;
@@ -40,7 +40,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Update
 		}
 
 
-		public async Task VerificateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task VerificateDomain(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			await Task.CompletedTask;
 		}

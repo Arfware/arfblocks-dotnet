@@ -16,12 +16,12 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			var mapper = new Mapper();
 			var requestPayload = (RequestModel)payload;
 
-			var endpointContext = (EndpointContext)context;
+			var endpointContext = (HandlerContext)context;
 			System.Console.WriteLine(endpointContext.UsersCount);
 
 			// Get User from DB

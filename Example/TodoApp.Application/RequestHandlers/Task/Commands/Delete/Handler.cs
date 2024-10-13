@@ -22,7 +22,7 @@ namespace TodoApp.Application.RequestHandlers.Tasks.Commands.Delete
 			_activityLogService = dependencyProvider.GetInstance<ActivityLogService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Payload
 			var requestPayload = (RequestModel)payload;

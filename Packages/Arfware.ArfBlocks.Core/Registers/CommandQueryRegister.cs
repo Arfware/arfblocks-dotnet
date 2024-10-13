@@ -7,6 +7,7 @@ using Arfware.ArfBlocks.Core.Attributes;
 using Arfware.ArfBlocks.Core.Models;
 using Arfware.ArfBlocks.Core.Settings;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Arfware.ArfBlocks.Core.Contexts;
 
 namespace Arfware.ArfBlocks.Core
 {

@@ -19,10 +19,10 @@ namespace TodoApp.Application.RequestHandlers.Users.Queries.Me
 			_clientService = dependencyProvider.GetInstance<CurrentClientService>();
 		}
 
-		public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public void ValidateRequestModel(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{ }
 
-		public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task ValidateDomain(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			var currentUserId = _clientService.GetCurrentUserId();
 

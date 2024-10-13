@@ -1,12 +1,12 @@
 namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 {
-	public class EndpointContext : IEndpointContext
+	public class HandlerContext : EndpointContext
 	{
 		private readonly ApplicationDbContext _dbContext;
 
 		public int UsersCount { get; set; }
 
-		public EndpointContext(ArfBlocksDependencyProvider dependencyProvider)
+		public HandlerContext(ArfBlocksDependencyProvider dependencyProvider)
 		{
 			_dbContext = dependencyProvider.GetInstance<ApplicationDbContext>();
 			this.UsersCount = _dbContext.Users.Count();

@@ -8,7 +8,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			_dbValidator = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public void ValidateRequestModel(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public void ValidateRequestModel(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;
@@ -22,7 +22,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			}
 		}
 
-		public async Task ValidateDomain(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task ValidateDomain(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			// Get Request Payload
 			var requestPayload = (RequestModel)payload;

@@ -19,7 +19,7 @@ namespace TodoApp.Application.RequestHandlers.Departments.Queries.All
 			_dbValidationService = dependencyProvider.GetInstance<DbValidationService>();
 		}
 
-		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, IEndpointContext context, CancellationToken cancellationToken)
+		public async Task<ArfBlocksRequestResult> Handle(IRequestModel payload, EndpointContext context, CancellationToken cancellationToken)
 		{
 			System.Console.WriteLine("Handler worked...");
 
