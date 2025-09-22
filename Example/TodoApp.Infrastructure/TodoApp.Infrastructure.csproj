@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
@@ -14,7 +14,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\TodoApp.Domain\TodoApp.Domain.csproj" />
-		<ProjectReference Include="..\..\Packages\Arfware.ArfBlocks.Core\Arfware.ArfBlocks.Core.csproj" />
+		<ProjectReference
+			Include="..\..\Packages\Arfware.ArfBlocks.Core\Arfware.ArfBlocks.Core.csproj" />
 	</ItemGroup>
 
 </Project>

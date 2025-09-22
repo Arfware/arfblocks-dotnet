@@ -2,8 +2,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\TodoApp.Infrastructure\TodoApp.Infrastructure.csproj" />
-		<ProjectReference Include="..\..\Packages\Arfware.ArfBlocks.Test\Arfware.ArfBlocks.Test.csproj" />
-		<ProjectReference Include="..\..\Packages\Arfware.ArfBlocks.Core\Arfware.ArfBlocks.Core.csproj" />
+		<ProjectReference
+			Include="..\..\Packages\Arfware.ArfBlocks.Test\Arfware.ArfBlocks.Test.csproj" />
+		<ProjectReference
+			Include="..\..\Packages\Arfware.ArfBlocks.Core\Arfware.ArfBlocks.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -11,7 +13,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
