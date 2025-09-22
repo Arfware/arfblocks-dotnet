@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Arfware.ArfBlocks.Core
+﻿namespace Arfware.ArfBlocks.Core
 {
 	public class ArfBlocksRequestResult
 	{
@@ -22,7 +18,13 @@ namespace Arfware.ArfBlocks.Core
 	public class ArfBlocksRequestResultError
 	{
 		public string Code { get; set; }
+
+		/// <summary>
+		/// Deprecated property
+		/// </summary>
 		public string Message { get; set; }
+
+		public string Description { get; set; }
 		public string StackTrace { get; set; }
 	}
 }

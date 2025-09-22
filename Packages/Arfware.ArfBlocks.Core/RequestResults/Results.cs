@@ -35,7 +35,7 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 			};
 		}
 
-		public static ArfBlocksRequestResult NotFound(string message)
+		public static ArfBlocksRequestResult NotFound(string code, string description = null)
 		{
 			return new ArfBlocksRequestResult()
 			{
@@ -43,12 +43,14 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 				HasError = true,
 				Error = new ArfBlocksRequestResultError()
 				{
-					Message = message
+					Code = code,
+					Message = code,
+					Description = description,
 				}
 			};
 		}
 
-		public static ArfBlocksRequestResult BadRequest(string message)
+		public static ArfBlocksRequestResult BadRequest(string code, string description = null)
 		{
 			return new ArfBlocksRequestResult()
 			{
@@ -56,15 +58,17 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 				HasError = true,
 				Error = new ArfBlocksRequestResultError()
 				{
-					Message = message
+					Code = code,
+					Message = code,
+					Description = description,
 				}
 			};
 		}
 
-		public static ArfBlocksRequestResult InternalServerError(string message)
+		public static ArfBlocksRequestResult InternalServerError(string code, string description = null)
 		{
 			Console.WriteLine("-----------------------------------------------------");
-			Console.WriteLine($"/Internal Server Error: {message}");
+			Console.WriteLine($"/Internal Server Error: {code}");
 			Console.WriteLine("-----------------------------------------------------");
 
 			return new ArfBlocksRequestResult()
@@ -73,12 +77,14 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 				HasError = true,
 				Error = new ArfBlocksRequestResultError()
 				{
-					Message = message
+					Code = code,
+					Message = code,
+					Description = description,
 				}
 			};
 		}
 
-		public static ArfBlocksRequestResult UnAuthorized(string message)
+		public static ArfBlocksRequestResult UnAuthorized(string code, string description = null)
 		{
 			return new ArfBlocksRequestResult()
 			{
@@ -86,12 +92,14 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 				HasError = true,
 				Error = new ArfBlocksRequestResultError()
 				{
-					Message = message
+					Code = code,
+					Message = code,
+					Description = description,
 				}
 			};
 		}
 
-		public static ArfBlocksRequestResult Forbidden(string message)
+		public static ArfBlocksRequestResult Forbidden(string code, string description = null)
 		{
 			return new ArfBlocksRequestResult()
 			{
@@ -99,7 +107,9 @@ namespace Arfware.ArfBlocks.Core.RequestResults
 				HasError = true,
 				Error = new ArfBlocksRequestResultError()
 				{
-					Message = message
+					Code = code,
+					Message = code,
+					Description = description,
 				}
 			};
 		}
