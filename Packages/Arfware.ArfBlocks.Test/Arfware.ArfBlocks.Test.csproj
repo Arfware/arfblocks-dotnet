@@ -6,7 +6,7 @@
 		<Nullable>disable</Nullable>
 		<PackageOutputPath>./nupkg</PackageOutputPath>
 
-		<PackageVersion>2.1.0</PackageVersion>
+		<PackageVersion>2.2.0</PackageVersion>
 		<Authors>Arfware</Authors>
 		<Company>Arfware</Company>
 		<Product>Arfware ArfBlocks Test</Product>
