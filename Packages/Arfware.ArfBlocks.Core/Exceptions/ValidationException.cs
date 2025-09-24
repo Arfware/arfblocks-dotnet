@@ -7,12 +7,15 @@ namespace Arfware.ArfBlocks.Core.Exceptions
 	public class ArfBlocksValidationException : Exception
 	{
 		public ArfBlocksValidationException()
-		{
+		{ }
 
-		}
+		public string Code { get; set; }
+		public string Description { get; set; }
 
-		public ArfBlocksValidationException(string message) : base(String.Format(message))
+		public ArfBlocksValidationException(string code, string description = null) : base(String.Format($"{code} | {description}"))
 		{
+			Code = code;
+			Description = description;
 		}
 	}
 }

@@ -27,7 +27,7 @@ namespace TodoApp.Application.RequestHandlers.Users.Commands.Login
 			// Get User from DB
 			var user = await dataAccessLayer.GetUserByEmail(requestPayload.Email);
 
-			return ArfBlocksResults.BadRequest("USER_NOT_ACTIVE", "Test test test");
+			// throw new ArfBlocksCommunicationException("USER_NOT_ACTIVE", "Test test test");
 
 			// Build JWT Token
 			var jwtToken = _jwtService.GenerateJwt(user);

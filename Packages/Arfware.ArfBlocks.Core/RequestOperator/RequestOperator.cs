@@ -1,15 +1,9 @@
-﻿using Arfware.ArfBlocks.Core;
-using Arfware.ArfBlocks.Core.Abstractions;
+﻿using Arfware.ArfBlocks.Core.Abstractions;
 using Arfware.ArfBlocks.Core.Exceptions;
 using Arfware.ArfBlocks.Core.Models;
 using Arfware.ArfBlocks.Core.RequestResults;
 using Arfware.ArfBlocks.Core.Contexts;
-using Arfware.ArfBlocks.Core.Settings;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Arfware.ArfBlocks.Core;
@@ -132,20 +126,25 @@ public class ArfBlocksRequestOperator
 			// Handle Request
 			result = await OperateHandlingPhase(endpoint.Handler, endpoint.PreHandler, endpoint.PostHandler, endpoint.DataAccess, payload, context, cancellationToken);
 		}
+		catch (ArfBlocksCommunicationException exception)
+		{
+			// do something
+			result = ArfBlocksResults.BadRequest(exception.Code, exception.Description);
+		}
 		catch (ArfBlocksRequestHandlerNotFoundException exception)
 		{
 			// do something
-			result = ArfBlocksResults.NotFound(exception.Message);
+			result = ArfBlocksResults.NotFound(exception.Code, exception.Description);
 		}
 		catch (ArfBlocksVerificationException exception) // Verification Error
 		{
 			// do something
-			result = ArfBlocksResults.BadRequest(exception.Message);
+			result = ArfBlocksResults.BadRequest(exception.Code, exception.Description);
 		}
 		catch (ArfBlocksValidationException exception) // Validation Error
 		{
 			// do something
-			result = ArfBlocksResults.BadRequest(exception.Message);
+			result = ArfBlocksResults.BadRequest(exception.Code, exception.Description);
 		}
 		catch (Exception exception) // CODE Error
 		{

@@ -9,7 +9,13 @@ namespace Arfware.ArfBlocks.Core.Exceptions
 		public ArfBlocksRequestHandlerNotFoundException()
 		{ }
 
-		public ArfBlocksRequestHandlerNotFoundException(string message) : base(string.Format(message))
-		{ }
+		public string Code { get; set; }
+		public string Description { get; set; }
+
+		public ArfBlocksRequestHandlerNotFoundException(string code, string description = null) : base(String.Format($"{code} | {description}"))
+		{
+			Code = code;
+			Description = description;
+		}
 	}
 }
