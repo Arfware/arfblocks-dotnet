@@ -131,6 +131,11 @@ public class ArfBlocksRequestOperator
 			// do something
 			result = ArfBlocksResults.BadRequest(exception.Code, exception.Description);
 		}
+		catch (ArfBlocksCommunicatorException exception)
+		{
+			// do something
+			result = ArfBlocksResults.BadRequest(exception.Code, exception.Description);
+		}
 		catch (ArfBlocksRequestHandlerNotFoundException exception)
 		{
 			// do something
