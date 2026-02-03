@@ -4,6 +4,10 @@ ArfBlocks (Cross-Blocks) is an advanced Mediator-Pattern library for Dotnet.
 
 ## Changelogs
 
+### 2.3.0
+
+- Created SkipDocumentation attribute for hiding properties from documentation generation tools
+
 ### 2.2.0
 
 - Added desription property to all custom exceptions and integrated to result
