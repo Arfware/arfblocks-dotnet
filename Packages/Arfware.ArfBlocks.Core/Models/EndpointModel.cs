@@ -28,6 +28,8 @@ namespace Arfware.ArfBlocks.Core.Models
 		public bool IsAuthorize { get; set; } // Handler Marked as AuthorizeAttribute
 		public bool IsEventHandler { get; set; } // Handler Marked as EventHandlerAttribute
 		public bool IsAllowAnonymous { get; set; } // Handler Marked as AllowAnonymousAttribute
+		public bool IsAuditable { get; set; }
+		public bool IsTraceable { get; set; }
 
 		public enum EndpointTypes
 		{

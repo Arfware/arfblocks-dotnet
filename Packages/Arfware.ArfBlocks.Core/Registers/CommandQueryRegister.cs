@@ -145,6 +145,8 @@ namespace Arfware.ArfBlocks.Core
 							IsAuthorize = attributes.IsAuthorize,
 							IsAllowAnonymous = attributes.IsAllowAnonymous,
 							IsEventHandler = attributes.IsEventHandler,
+							IsAuditable = attributes.isAuditableHandler,
+							IsTraceable = attributes.isTraceableHandler,
 						};
 
 						if (endpoint.ResponseModel != null)
@@ -179,12 +181,14 @@ namespace Arfware.ArfBlocks.Core
 			throw new Exception("Command Query Register Error: Endpoint Type Could Not Determined !");
 		}
 
-		public static (bool IsInternal, bool IsAuthorize, bool IsAllowAnonymous, bool IsEventHandler) GetAttributes(Type type)
+		public static (bool IsInternal, bool IsAuthorize, bool IsAllowAnonymous, bool IsEventHandler, bool isAuditableHandler, bool isTraceableHandler) GetAttributes(Type type)
 		{
 			bool isInternal = false;
 			bool isAuthorize = false;
 			bool isAllowAnonymous = false;
 			bool isEventHandler = false;
+			bool isAuditableHandler = false;
+			bool isTraceableHandler = false;
 
 			var attrs = System.Attribute.GetCustomAttributes(type).ToList();  // Reflection.  
 			attrs.ForEach((attr) =>
@@ -197,13 +201,22 @@ namespace Arfware.ArfBlocks.Core
 					isAllowAnonymous = true;
 				else if (attr is EventHandlerAttribute)
 					isEventHandler = true;
+
+
+				if (attr is AuditableHandlerAttribute)
+					isAuditableHandler = true;
+
+
+				if (attr is TraceableHandlerAttribute)
+					isTraceableHandler = true;
+
 			});
 
 			// Lock Control
 			if (isAuthorize && isAllowAnonymous)
 				throw new Exception($"'{type.FullName}' marked as Authorize and AllowAnonymous Attributes. You can't use them together!");
 
-			return (isInternal, isAuthorize, isAllowAnonymous, isEventHandler);
+			return (isInternal, isAuthorize, isAllowAnonymous, isEventHandler, isAuditableHandler, isTraceableHandler);
 		}
 	}
 }

@@ -353,6 +353,8 @@ public class ArfBlocksRequestOperator
 			IsAuthorize = attributes.IsAuthorize,
 			IsAllowAnonymous = attributes.IsAllowAnonymous,
 			IsEventHandler = attributes.IsEventHandler,
+			IsAuditable = attributes.isAuditableHandler,
+			IsTraceable = attributes.isTraceableHandler,
 		};
 
 		return endpoint;
