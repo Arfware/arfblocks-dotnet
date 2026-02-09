@@ -4,6 +4,10 @@ ArfBlocks.Test is an test suite for ArfBlocks based Command and Queries.
 
 ## Changelogs
 
+### 2.4.0
+
+- Upgraded ArfBlocks library version as 2.4.0
+
 ### 2.3.0
 
 - Upgraded ArfBlocks library version as 2.3.0
