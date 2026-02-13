@@ -63,7 +63,7 @@ public class ArfBlocksRequestOperator
 	}
 
 
-	private async Task<ArfBlocksRequestResult> RunPostOperate(EndpointModel endpoint, ArfBlocksRequestResult response, EndpointContext parentContext)
+	private async Task<ArfBlocksRequestResult> RunPostOperate(EndpointModel endpoint, IRequestModel payload, ArfBlocksRequestResult response, EndpointContext parentContext)
 	{
 		if (CommandQueryRegister.PostOperateEndpoint == null)
 			return null;
@@ -75,7 +75,8 @@ public class ArfBlocksRequestOperator
 		var requestPayload = (dynamic)Activator.CreateInstance(CommandQueryRegister.PostOperateEndpoint.RequestModel);
 		requestPayload.Endpoint = endpoint;
 		requestPayload.Response = response;
-
+		requestPayload.Request = payload;
+		
 		return await OperateByEndpoint(CommandQueryRegister.PostOperateEndpoint, requestPayload, parentContext);
 	}
 
@@ -166,7 +167,7 @@ public class ArfBlocksRequestOperator
 		// Post Operate
 		try
 		{
-			var postOperateResult = await RunPostOperate(endpoint, result, context);
+			var postOperateResult = await RunPostOperate(endpoint, payload, result, context);
 			totalDuration += postOperateResult?.DurationMs ?? 0;
 		}
 		catch (Exception ex)

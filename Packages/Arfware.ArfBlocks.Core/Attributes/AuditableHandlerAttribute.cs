@@ -6,5 +6,6 @@ namespace Arfware.ArfBlocks.Core.Attributes
 	{
 		public AuditableHandlerAttribute()
 		{ }
+		public string SourceRef { get; set; }
 	}
 }
